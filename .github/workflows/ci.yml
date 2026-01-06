@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify-public-base:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Public preflight (GDPR boundary)
+        run: python3 OS/01_SCRIPTS/verify_public_export.py .
+      - name: Python compile check
+        run: python3 -m compileall -q OS/01_SCRIPTS

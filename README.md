@@ -11,6 +11,12 @@ This repo is intentionally **GDPR-safe**:
 
 You clone this base, then you add your **own** private context locally (and keep it out of Git).
 
+## Docs
+- `docs/INSTALL.md` — install & first boot
+- `docs/ARCHITECTURE.md` — how the pieces connect
+- `docs/PRIVACY.md` — GDPR boundary & what never goes to Git
+- `docs/BROWSER_AUTOMATION.md` — how an agent can “drive the browser” safely
+
 ## Quickstart (Mac / Linux)
 1) Copy example configs (first run):
    - `cp OS/00_CORE_DATA/omega_kernel.example.json OS/00_CORE_DATA/omega_kernel.json`
@@ -40,3 +46,6 @@ Start/stop:
 
 ## Publish (safe)
 - Double-click `PUBLISH_PUBLIC.command` (preflight + next steps)
+
+## Versioning
+See `CHANGELOG.md`. GitHub Releases are tagged (`vX.Y.Z`).

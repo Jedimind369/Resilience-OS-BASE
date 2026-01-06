@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-01-06T15:32:09",
+  "included": {
+    "copied_root_files": [
+      "OMEGA_ONE_CLICK.command",
+      "BACKUP_RESILIENCE_OS.command",
+      "PUBLISH_PUBLIC.command"
+    ],
+    "copied_dirs": [
+      "OS/05_DASHBOARD",
+      "OS/06_CRISIS/*",
+      "OS/00_CORE_DATA/*.example.json"
+    ],
+    "copied_scripts_allowlist": [
+      "omega_one_click.py",
+      "dashboard_server.py",
+      "dashboard_smoke_test.py",
+      "history_tracker.py",
+      "infrastructure_manager.py",
+      "power_watchdog_service.py",
+      "power_watchdog_ctl.py",
+      "load_context.py",
+      "backup_resilience_os.py",
+      "export_public_base.py",
+      "verify_public_export.py",
+      "update_kernel_balances.py"
+    ],
+    "excluded_roots": [
+      "Psychotherapie",
+      "SYSTEM_CONTEXT",
+      "Sources",
+      "Upwork Outreach",
+      "prepper central erweiterung",
+      "stunspotPrompts"
+    ],
+    "excluded_runtime": [
+      "OS/logs",
+      "OS/03_REPORTS",
+      "OS/99_DERIVED_TEXT"
+    ]
+  },
+  "note": "This is a GDPR-friendly base export. Do not add private data."
+}

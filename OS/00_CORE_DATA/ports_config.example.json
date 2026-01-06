@@ -1,0 +1,26 @@
+{
+  "dashboard": {
+    "port": 3000,
+    "managed": true,
+    "command": [
+      "python3",
+      "OS/01_SCRIPTS/omega_one_click.py"
+    ]
+  },
+  "watchdog": {
+    "managed": true,
+    "command": [
+      "python3",
+      "OS/01_SCRIPTS/power_watchdog_ctl.py",
+      "start"
+    ]
+  },
+  "ollama": {
+    "managed": false,
+    "port": 11434,
+    "command": [
+      "ollama",
+      "serve"
+    ]
+  }
+}

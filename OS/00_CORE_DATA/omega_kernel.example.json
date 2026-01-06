@@ -1,0 +1,17 @@
+{
+  "_last_updated": "1970-01-01T00:00:00Z",
+  "current_balances": {
+    "volksbank_available": 0.0,
+    "revolut_eur": 0.0,
+    "net_liquidity": 0.0
+  },
+  "pending_transactions": {
+    "inflows": {}
+  },
+  "financial_intelligence": {
+    "runway_calculation": {
+      "runway_days": 0.0,
+      "monthly_burn": 0.0
+    }
+  }
+}

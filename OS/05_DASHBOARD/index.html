@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resilience OS Dashboard</title>
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- ANTI-FLASHBANG: External script loads BEFORE CSS to set dark mode -->
+  <script src="theme-init.js"></script>
+
+  <link rel="stylesheet" href="style.css?v=2026-01-06-2" />
+</head>
+
+<body class="preload">
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" class="theme-toggle-btn" title="Tag/Nacht Modus">
+    <span class="theme-icon">🌓</span>
+  </button>
+
+  <div class="ambient"></div>
+  <div id="stale-overlay" class="overlay" aria-hidden="true">
+    <div class="overlay-card">
+      <div class="overlay-title">DATA STALE</div>
+      <div id="stale-overlay-sub" class="overlay-sub">Data is older than 15 minutes. Proceed with caution.</div>
+    </div>
+  </div>
+
+  <header class="top">
+    <div class="brand">
+      <div class="mark">OMEGA</div>
+      <div class="role">SOC</div>
+      <div class="tag">Local Resilience Interface</div>
+    </div>
+    <div class="meta">
+      <div class="meta-block">
+        <div class="meta-label">Source Timestamp</div>
+        <div id="source-timestamp" class="meta-value">--</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Local Time</div>
+        <div id="local-time" class="meta-value">--</div>
+      </div>
+    </div>
+  </header>
+
+
+  <section id="nuclear-alert" class="alert" hidden>
+    <div class="alert-title">NUCLEAR ALERT</div>
+    <div id="alert-message" class="alert-message">--</div>
+  </section>
+
+  <section class="survival-scout">
+    <div class="scout-header">
+      <div class="scout-title">🚦 60-Second Return Check</div>
+      <div class="scout-subtitle">Survival Mode Active · Verify before committing</div>
+    </div>
+    <div class="connectivity-status" id="connectivity-status">
+      <div class="conn-item"><span class="conn-dot" id="conn-kiwix"></span> Kiwix</div>
+      <div class="conn-item"><span class="conn-dot" id="conn-ollama"></span> Ollama</div>
+      <div class="conn-item"><span class="conn-dot" id="conn-dashboard"></span> Dashboard</div>
+    </div>
+    <div class="scout-grid" id="transport-checks">
+      <div class="scout-loading">Loading transport intel...</div>
+    </div>
+    <div class="scout-decision" id="hub-decision">
+      <!-- Injected via JS -->
+    </div>
+  </section>
+
+  <section class="crisis-intel" id="crisis-intel" hidden>
+    <div class="crisis-header">
+      <div class="crisis-title">🚨 AHRTAL-LEVEL STATUS REPOR T</div>
+      <div class="crisis-meta" id="crisis-ts">Refreshing...</div>
+    </div>
+    <div id="crisis-alerts"></div>
+    <div id="crisis-resources" class="resources-grid"></div>
+  </section>
+
+
+
+  <section class="quickstart">
+    <div class="quick-title">Quick Start (Lowest Friction)</div>
+    <div class="quick-grid">
+      <div class="quick-card">
+        <div class="quick-label">Mac (Power Available)</div>
+        <div class="quick-body">Double-click this file to refresh everything and launch the dashboard.</div>
+        <div class="quick-path">OMEGA_ONE_CLICK.command</div>
+        <div class="quick-meta">Ollama: <span id="offline-ollama">--</span> · Recommended: <span
+            id="offline-mac">--</span></div>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">Run Refresh (One Tap)</div>
+        <div class="quick-body">Refresh offline brain, KPI snapshot, and council audit.</div>
+        <button class="quick-button" id="run-refresh" type="button">Run Refresh</button>
+        <div class="quick-meta" id="run-refresh-status">Status: --</div>
+        <div id="run-refresh-log" class="quick-meta">--</div>
+      </div>
+      <div class="quick-card quick-card-hero">
+        <div class="quick-label">Make System Usable Now</div>
+        <div class="quick-body">One button. No philosophy. Runs checks + refresh and tells you exactly what still needs
+          fixing.</div>
+        <button class="quick-button quick-button-hero" id="make-usable" type="button">Make System Usable Now</button>
+        <div class="quick-meta" id="make-usable-status">Status: --</div>
+        <pre id="make-usable-output" class="prompt-preview">--</pre>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">Free Disk Space (Time Machine)</div>
+        <div class="quick-body">Generates safe delete commands (keeps the last 2 backups). You run them in Terminal.
+        </div>
+        <button class="quick-button" id="tm-plan" type="button">Generate Cleanup Plan</button>
+        <button class="quick-button" id="tm-copy" type="button" disabled>Copy Commands</button>
+        <div class="quick-meta" id="tm-status">Status: --</div>
+        <pre id="tm-output" class="prompt-preview">--</pre>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">Power Watchdog (Set & Forget)</div>
+        <div class="quick-body">Background alerts for official “power is back” news. Works with intermittent internet.
+        </div>
+        <button class="quick-button" id="pw-start" type="button">Install & Start</button>
+        <button class="quick-button" id="pw-stop" type="button">Stop</button>
+        <button class="quick-button" id="pw-copy" type="button" disabled>Copy Setup</button>
+        <div class="quick-meta" id="pw-status">Status: --</div>
+        <pre id="pw-output" class="prompt-preview">--</pre>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">No Power / iPhone</div>
+        <div class="quick-body">Open <strong>Locally AI</strong> → load GGUF → paste the mobile prompt. Recommended:
+          <span id="offline-mobile">--</span>
+        </div>
+        <div class="quick-meta">Backup instructions: OS/06_CRISIS/START_HERE.txt</div>
+        <button class="quick-button" id="copy-prompt" type="button">Copy Mobile Prompt</button>
+        <button class="quick-button" id="copy-context" type="button" disabled>Copy Offline Context</button>
+        <pre id="prompt-preview" class="prompt-preview">--</pre>
+        <pre id="context-preview" class="prompt-preview">--</pre>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">Memory Sync (Chunks)</div>
+        <div class="quick-body">Turns Sources + chat logs into pasteable parts and writes a coverage index.</div>
+        <button class="quick-button" id="mem-refresh" type="button">Refresh Memory</button>
+        <button class="quick-button" id="mem-stubs" type="button">Create Summary Stubs</button>
+        <button class="quick-button" id="mem-copy" type="button" disabled>Copy Memory Index (MIN)</button>
+        <div class="quick-meta" id="mem-status">Status: --</div>
+        <pre id="mem-output" class="prompt-preview">--</pre>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">New Chat Pack (One Tap)</div>
+        <div class="quick-body">Copies OFFLINE CONTEXT (MIN) + MEMORY INDEX (MIN) + last session log.</div>
+        <button class="quick-button" id="chat-pack-copy" type="button" disabled>Copy NEW CHAT PACK</button>
+        <pre id="chat-pack-preview" class="prompt-preview">--</pre>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">If Dashboard Says STALE</div>
+        <div class="quick-body">Wiring is OK — timestamps are old. Refresh kernel balances once:</div>
+        <div class="quick-path">python3 OS/01_SCRIPTS/update_kernel_balances.py</div>
+      </div>
+      <div class="quick-card">
+        <div class="quick-label">Model Self-Check</div>
+        <div class="quick-body">Run a 10-second sanity check (OK + safety warning).</div>
+        <button class="quick-button" id="run-model-check" type="button">Run Model Check</button>
+        <div class="quick-meta" id="model-check-status">Status: --</div>
+        <pre id="model-check-output" class="prompt-preview">--</pre>
+      </div>
+    </div>
+  </section>
+
+  <main class="grid">
+    <section class="card" id="card-ops" data-state="neutral">
+      <div class="card-title">Ops Monitor</div>
+      <div class="card-sub">Kiwix download + critical logistics (offline-first).</div>
+      <div class="quick-meta" id="ops-kiwix">Kiwix: --</div>
+      <div class="quick-meta" id="ops-storage">Storage: --</div>
+      <div class="card-list" id="ops-logistics">--</div>
+      <div class="quick-meta" id="ops-hint">Tip: run `python3 OS/01_SCRIPTS/download_watchdog.py` for live terminal
+        monitoring.</div>
+    </section>
+
+    <section class="card" id="card-ai" data-state="neutral">
+      <div class="card-title">AI Assistant (Local)</div>
+      <div class="card-sub">Auto-selects the best local model and falls back if slow/unavailable.</div>
+      <div class="form-row">
+        <label class="form-label" for="ai-tier">Mode</label>
+        <select id="ai-tier" class="form-select">
+          <option value="">AUTO</option>
+          <option value="ECO">ECO</option>
+          <option value="STANDARD">STANDARD</option>
+          <option value="ADVANCED">ADVANCED</option>
+          <option value="REASONING">REASONING</option>
+          <option value="UNRESTRICTED">UNRESTRICTED</option>
+          <option value="VISION">⚠️ VISION (Locally AI only)</option>
+        </select>
+        <button class="quick-button" id="ai-send" type="button">Ask</button>
+      </div>
+      <textarea id="ai-prompt" class="form-textarea" rows="3"
+        placeholder="Ask ResilienceOS… (e.g., 'Give me the next 3 actions for today.')"></textarea>
+      <div class="quick-meta" id="ai-meta">Engine: --</div>
+      <pre id="ai-output" class="prompt-preview">--</pre>
+    </section>
+
+    <section class="card" id="card-liquidity" data-state="neutral">
+      <div class="card-title">Liquidity</div>
+      <div class="card-value card-value-row"><span id="liquidity-value">--</span><span id="liquidity-trend"
+          class="trend neutral">—</span></div>
+      <div class="card-sub" id="liquidity-sub">Net liquidity after pending outflows.</div>
+    </section>
+
+    <section class="card" id="card-runway" data-state="neutral">
+      <div class="card-title">Runway</div>
+      <div class="card-value card-value-row"><span id="runway-value">--</span><span id="runway-trend"
+          class="trend neutral">—</span></div>
+      <div class="card-sub" id="runway-sub">Days until zero at current burn.</div>
+    </section>
+
+    <section class="card" id="card-inflows" data-state="neutral">
+      <div class="card-title">Pending Inflows</div>
+      <div class="card-list" id="inflows-list">--</div>
+      <div class="card-sub" id="inflows-sub">Expected confirmations and status.</div>
+    </section>
+
+    <section class="card" id="card-burn" data-state="neutral">
+      <div class="card-title">Burn Rate</div>
+      <div class="card-value" id="burn-value">--</div>
+      <div class="card-sub" id="burn-sub">Monthly burn from kernel runway calc.</div>
+    </section>
+
+    <section class="card" id="card-offline" data-state="neutral">
+      <div class="card-title">Offline Brain</div>
+      <div class="card-list">
+        <div>Mac model: <span id="offline-mac-card">--</span></div>
+        <div>Mobile GGUF: <span id="offline-mobile-card">--</span></div>
+        <div>Prompt file: <span id="offline-prompt-card">--</span></div>
+      </div>
+      <div class="card-sub">Thin-model readiness (Ollama + GGUF).</div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>OMEGA SOC is offline-only. No outbound traffic.</div>
+    <div id="stale-status">Staleness: --</div>
+    <div id="api-meta">API: --</div>
+    <div id="ui-version">UI: --</div>
+  </footer>
+
+  <script src="app.js?v=2026-01-06-2"></script>
+</body>
+
+</html>

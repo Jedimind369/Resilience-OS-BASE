@@ -1,0 +1,19 @@
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+.env
+
+OS/logs/
+OS/03_REPORTS/
+OS/99_DERIVED_TEXT/
+Sources/
+Psychotherapie/
+SYSTEM_CONTEXT/
+Upwork Outreach/
+stunspotPrompts/
+prepper central erweiterung/
+OS/00_PRIVATE/
+
+OS/00_CORE_DATA/*.json
+!OS/00_CORE_DATA/*.example.json

@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "check_interval_seconds": 300,
+  "keywords": [
+    "Stromausfall",
+    "Wiederversorgung",
+    "Stromnetz"
+  ],
+  "sources": [
+    {
+      "name": "rbb24",
+      "url": "https://www.rbb24.de/aktuell/index.xml/allitems=true/feed=rss"
+    },
+    {
+      "name": "berlin.de",
+      "url": "https://www.berlin.de/presse/pressemitteilungen/index/feed"
+    }
+  ]
+}

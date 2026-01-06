@@ -16,6 +16,7 @@ You clone this base, then you add your **own** private context locally (and keep
 - `docs/ARCHITECTURE.md` — how the pieces connect
 - `docs/PRIVACY.md` — GDPR boundary & what never goes to Git
 - `docs/BROWSER_AUTOMATION.md` — how an agent can “drive the browser” safely
+- `docs/DEEP_RESEARCH_PROMPT.md` — S-tier research prompt (evidence rules + query pack)
 
 ## Quickstart (Mac / Linux)
 1) Copy example configs (first run):
